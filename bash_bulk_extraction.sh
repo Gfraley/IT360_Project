@@ -1,4 +1,5 @@
-# final draft 
+​
+# final draft
 #!/bin/bash
 
 # =================================================================
@@ -18,8 +19,6 @@ TARGET_DIR="${1:-/home}"
 
 # 2. OUTPUT DIRECTORY
 # [USER CONFIG]: Currently set to create a folder in the directory where you run the script.
-# IMPORTANT: For real forensics, change this path to your external USB drive to avoid
-# contaminating the evidence drive.
 # Example: OUTPUT_DIR="/media/my_external_usb/evidence_collection_$TIMESTAMP"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 OUTPUT_DIR="./evidence_collection_$TIMESTAMP"
@@ -59,8 +58,7 @@ grep -r -a -b -o -E "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}" "$TARGET_D
     > "$OUTPUT_DIR/bulk_emails.txt" 2>> "$ERROR_LOG"
 
 # 2. PASSWORD PATTERN EXTRACTION
-# [USER CONFIG]: You can add more keywords to the regex below (inside the parentheses)
-# if you know the planted files use specific terms like "code" or "pin".
+
 echo "    > Scanning for Password keywords..."
 grep -r -a -b -i -E "(password|passwd|secret|credentials)[[:space:]]*[:=][[:space:]]*" "$TARGET_DIR" \
     > "$OUTPUT_DIR/bulk_passwords.txt" 2>> "$ERROR_LOG"
@@ -74,7 +72,7 @@ echo "[*] Module 2: Collecting User Activity..."
 # 3. LOGIN HISTORY
 # [USER CONFIG]: The script tries to find logs inside your TARGET_DIR first (for mounted images).
 # If not found, it defaults to the live system logs (/var/log).
-# If your evidence logs are in a non-standard custom location, edit the paths below.
+
 
 # Define potential log paths based on target
 TARGET_WTMP="$TARGET_DIR/var/log/wtmp"
@@ -105,7 +103,6 @@ fi
 # 4. BASH HISTORY
 echo "    > Aggregating Bash History in target..."
 # [USER CONFIG]: If looking for history files other than .bash_history (like .zsh_history),
-# change the name in the find command below.
 find "$TARGET_DIR" -name ".bash_history" -exec grep -H "" {} \; \
     > "$OUTPUT_DIR/aggregate_bash_history.txt" 2>> "$ERROR_LOG"
 
