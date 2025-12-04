@@ -1,4 +1,5 @@
-Bash Bulk Extracto - Digital Forensics Tool
+Bash Bulk Extractor - Digital Forensics Tool
+Created by Garrett Fraley and Marcellus Neal
 
 > Video Demonstration
 - https://youtu.be/06YVHYUW9iI
